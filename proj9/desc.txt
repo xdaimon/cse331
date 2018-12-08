@@ -1,0 +1,111 @@
+Edge Class:
+    This class is provided for you, DO NOT modify it.
+    An edge object represents an edge in the graph.
+    It connects a source (Vertex object) with a destination (Vertex id).
+
+Path Class:
+    This class keeps track of a path through the graph.
+    This is useful in graphs because it allows for a meaninful representation of what a path is.
+    i.e. A route in google maps is represented by a path through a graph.
+
+    self.vertices represents the vertices in the path in a specific order.
+
+    add_vertex(self, vertex):
+        Add a Vertex id to the path.
+        Return None
+        O(1) time complexity
+    remove_vertex(self):
+        Remove the most recently added Vertex id from the path.
+        Return None
+        O(1) time complexity
+    last_vertex(self):
+        Return the last Vertex id added to the path
+        If path is empty return None
+        O(1) time complexity
+    is_empty(self):
+        Check if the path is empty.
+        Return Boolean
+        O(1) time complexity
+
+Vertex Class:
+    This class represents a vertex in the Graph.
+
+    self.edges is a list of outgoing edges from the vertex
+    self.ID is the id of the vertex
+    self.visited is a boolean that represents if the vertex has already been visited.
+    self.fake is a boolean that represents if the vertex is a 'fake' vertex.
+
+    add_edge(self, destination):
+        Add an edge to the Vertex given the id of the destination Vertex.
+        Return None
+        O(1) time complexity
+    degree(self):
+        Return the number of outgoing edges (degree) of the Vertex
+        O(1) time complexity
+    get_edge(self, destination):
+        Returns the Edge that goes to a specified destination node.
+        If the edge is not found, return None
+        O(n) time complexity
+    get_edges(self):
+        Returns a list of all of the edges.
+        O(1) time complexity
+    set_fake(self):
+        Set the vertex as a fake vertex.
+        O(1) time complexity
+    visit(self):
+        Set the vertex as visited.
+        O(1) time complexity
+
+
+Graph Class:
+    An abstract class that represents a directed graph
+
+    self.adj_list represents the adjacency list storing the graph. Structure: {vertex_id: Vertex()}
+    self.size is the size of the graph. Only used to construct graph, disregard if constructing graph from file. Do not modify.
+    self.connectedness represents the connectedness of the graph, value between 0 and 1. Do not modify.
+    self.filename is the filename used to construct a graph, default value is None.
+    self.construct_graph() is the construct graph method called when a Graph Object is instantiated.
+
+    generate_edges(self):
+        DO NOT EDIT THIS METHOD
+        Generates directed edges between vertices
+        Returns a generator object that returns a tuple of the form (source ID, destination ID)
+        used to construct an edge
+    get_vertex(self, id):
+        Returns the vertex with the specified id.
+        If the vertex is not found, return None
+        O(1) time complexity
+    construct_graph(self):
+        Add all edges to a Graph. If a filename is provided, read from the file to construct the graph, otherwise use the generate_edges method to construct the graph. Do not accept graphs with a negative size or connectedness not in the range [0, 1]
+        If provided with bad input, raise a GraphError.
+        Both forms of input return data in the following format: [source, destination]
+        Uses the dictionary self.adj_list to store vertices’ IDs as keys and their objects as values.
+        Do NOT insert parallel edges in your graph.
+        Sample file with example input is linked below
+        test_construction_simple.txt
+        O(E) time complexity, E is the number of edges to insert.
+    BFS(self, start, target):
+        Breadth First Search given a start ID, find a path to the target ID.
+        If the target node is not found, return an empty Path, otherwise, return a Path of vertex id's from the start vertex to the target vertex.
+        If there are multiple paths, choose 1 path to return.
+        File for simple search graph: test_search_simple.txt, Same for DFS
+        O(V+E), V is the number of vertices, E is the number of edges
+    DFS(self, start, target, path=Path()):
+        Depth First Search with the same return specifications as BFS
+        Must be recursive
+        O(V+E), V is the number of vertices, E is the number of edges
+
+
+External Functions
+
+Using the aformentioned emails dataset, we can create a structure using the Graph ADT where the vertices represent email adresses and edges represent messages sent. We assume that if a vertex has a degree 0 then it is a likely candidate for a fake email address. This is because email messages are coming into the vertex, but no email messages are sent from it. You will be writing the the functions to identify all potential fake emails.
+
+    fake_emails(graph, mark_false=False):
+        Finds all fake vertices in the Graph, sets them to be fake, and adds their IDs to a list. A Vertex is fake if the degree of the vertex is 0 (messages coming in, no messages going out).
+        If mark_false is True, set the fake flag on each fake vertex.
+        You are allowed to iterate over graph.adj_list ONLY in the scope of this method.
+        The picture below clarifies what this means.
+        Returns a list of fake vertex IDs.
+        O(V(V+E)) time complexity, V is the number of vertices, E is the number of edges
+    check_fake_emails(start, emails=list())
+        This is a nested function within fake_emails() DO
