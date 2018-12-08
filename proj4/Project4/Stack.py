@@ -1,7 +1,6 @@
 """
 # Project 4
 # Name: Bradley Bauer
-# PID: A56677986
 """
 
 class Stack:

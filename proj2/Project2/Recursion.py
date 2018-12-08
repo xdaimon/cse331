@@ -1,7 +1,6 @@
 """
 PROJECT 2 - Recursion
 Name: Bradley Bauer
-PID: A56677986
 """
 
 from Project2.LinkedNode import LinkedNode
